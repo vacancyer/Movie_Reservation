@@ -35,224 +35,249 @@ public class DBconnectMov {
 		}
 		return conn;
 	}
-	public void insertMoviecenter(String movcenter, String movpoint, String movaddress) {
+	public void insertMoviecenter(String centercode, String centername, String address) {
 	      // ===========DB파일===========
 	      // 3. Statement 생성
 	      try {
 	        stmt = conn.createStatement();
 
-	        String sql = "INSERT INTO moviecenter (movcenter, movpoint, movaddress) VALUES ('"+
-	           movcenter + "','"+ movpoint + "','"+ movaddress + "')";
+	        String sql = "INSERT INTO MOVIECENTER (centercode, centername, address) VALUES ('"+
+	           centercode + "','"+ centername + "','"+ address + "')";
 	         stmt.executeUpdate(sql);
-	         System.out.printf("%s 영화관 등록이 완료되었습니다.\n", movpoint);
+	         System.out.printf("%s 영화관 등록이 완료되었습니다.\n", centername);
 	      } catch (Exception e) {
 	         System.out.println("DB 작업중 문제 발생: " + e.getMessage());
 	         e.printStackTrace();
 	      }
 	   }
-	public void updateMoviecenter(String movcenter, String movpoint, String movaddress) {
+	public void updateMoviecenter(String centercode, String centername, String address) {
 		//============== DB작업 ================
 		try {
 			stmt = conn.createStatement();
-			String sql = String.format("UPDATE moviecenter SET movpoint = '%s', movaddress = '%s' WHERE movcenter = '%s'", 
-movpoint, movaddress, movcenter);
+			String sql = String.format("UPDATE MOVIECENTER SET centername = '%s', address = '%s' WHERE centercode = '%s'", 
+					 centername, address, centercode);
 		stmt.executeUpdate(sql);
-		System.out.printf("%s 영화관 수정이 완료되었습니다.\n", movpoint);
+		System.out.printf("%s 영화관 수정이 완료되었습니다.\n", centername);
 		} catch (Exception e) {
 		System.out.println("DB 작업 중 문제 발생: " + e.getMessage());
 		e.printStackTrace();
 		}
 		//=========================================
 	}
-	public void deleteMoviecenter(String movcenter, String movpoint) {
+	public void deleteMoviecenter(String centercode, String centername) {
 		//================= DB작업 ===============
 		try {
 			stmt = conn.createStatement();
-			String sql = String.format("DELETE FROM moviecenter WHERE movcenter = '%s'",movcenter);
+			String sql = String.format("DELETE FROM MOVIECENTER WHERE centercode = '%s'", centercode);
 			stmt.executeUpdate(sql);
-			System.out.printf("%s 영화관 삭제가 완료되었습니다.\n", movpoint);
+			System.out.printf("%s 영화관 삭제가 완료되었습니다.\n", centername);
 		}catch (Exception e) {
 			System.out.println("DB 작업중 문제 발생: " + e.getMessage());
 			e.printStackTrace();
 		}
 		// ===========================================
 	}
-	public void insertMovie(String movcode, String movname, String movthema, int runtime, int agegroup, float resrate) {
+	public void insertMovie(String moviecode, String moviename, String thema, int runtime, int agegroup, float salesrate, String opendate) {
 	      // ===========DB파일===========
 	      // 3. Statement 생성
 	      try {
 	        stmt = conn.createStatement();
 
-	        String sql = String.format("INSERT INTO movies (movcode, movname, movthema, runtime, agegroup, resrate) VALUES ('%s','%s','%s','%s','%s','%s')"
-	        		, movcode,movname, movthema, runtime, agegroup, resrate);
+	        String sql = String.format("INSERT INTO MOVIE (moviecode, moviename, thema, runtime, agegroup, salesrate, opendate) "
+	        		+ "VALUES ('%s','%s','%s','%s','%s','%s','%s')"
+	        		, moviecode, moviename, thema, runtime, agegroup, salesrate, opendate);
 	         stmt.executeUpdate(sql);
-	         System.out.printf("%s 영화 정보 등록이 완료되었습니다.\n", movname);
+	         System.out.printf("%s 영화 정보 등록이 완료되었습니다.\n", moviename);
 	      } catch (Exception e) {
 	         System.out.println("DB 작업중 문제 발생: " + e.getMessage());
 	         e.printStackTrace();
 	      }
 	   }
-	public void updateMovie(String movcode, String movname, String movthema, int runtime, int agegroup, float resrate) {
+	public void updateMovie(String moviecode, String moviename, String thema, int runtime, int agegroup, float salesrate, String opendate) {
 		//============== DB작업 ================
 		try {
 			stmt = conn.createStatement();
-			String sql = String.format("UPDATE movies SET movname = '%s' , movthema = '%s', runtime = '%s' , agegroup = '%s', resrate = '%s' WHERE movcode = '%s'", 
-movname, movthema, runtime, agegroup, resrate, movcode);
+			String sql = String.format("UPDATE MOVIE SET moviename = '%s', thema = '%s', runtime = '%s' , agegroup = '%s', salesrate = '%s',  "
+					+ "opendate = '%s' WHERE moviecode = '%s'", 
+moviename, thema, runtime, agegroup, salesrate, opendate, moviecode);
 		stmt.executeUpdate(sql);
-		System.out.printf("%s 영화 정보 수정이 완료되었습니다.\n", movname);
+		System.out.printf("%s 영화 정보 수정이 완료되었습니다.\n", moviename);
 		} catch (Exception e) {
 		System.out.println("DB 작업 중 문제 발생: " + e.getMessage());
 		e.printStackTrace();
 		}
 		//=========================================
 	}
-	public void deleteMovie(String movcode, String movname) {
+	public void deleteMovie(String moviecode, String moviename) {
 		//================= DB작업 ===============
 		try {
 			stmt = conn.createStatement();
-			String sql = String.format("DELETE FROM movies WHERE movcode = '%s'",movcode);
+			String sql = String.format("DELETE FROM MOVIE WHERE moviecode = '%s'",moviecode);
 			stmt.executeUpdate(sql);
-			System.out.printf("%s 영화 정보 삭제가 완료되었습니다.\n", movname);
+			System.out.printf("%s 영화 정보 삭제가 완료되었습니다.\n", moviename);
 		}catch (Exception e) {
 			System.out.println("DB 작업중 문제 발생: " + e.getMessage());
 			e.printStackTrace();
 		}
 		// ===========================================
 	}
-	public void insertTheater(String thecode, String thename, String movpoint, int price, int cleantime, String movcenter) {
+	public void insertTheater(String theatercode, String theatername, String centercode, int seatprice, int cleantime, String totalseats) {
 	      // ===========DB파일===========
 	      // 3. Statement 생성
 	      try {
-	        stmt = conn.createStatement();
+	    	  stmt = conn.createStatement();
+	        ArrayList<MOVIECENTER> moviecenters = getmoviecenter();
 
-	        String sql =String.format("INSERT INTO theater (thecode, thename, movcenter, price, cleantime) VALUES ('%s','%s','%s','%s','%s')"
-	        		, thecode, thename, movcenter, price, cleantime);
+	    	  String centername = "";
+	    	  for (MOVIECENTER moviecenter : moviecenters) {
+	    		  if (moviecenter.getCentercode().equals(centercode))
+	    			  centername = moviecenter.getCentername();
+	    	  }
+	    	  
+	        String sql =String.format("INSERT INTO THEATER (theatercode, theatername, centercode, seatprice, cleantime, totalseats) VALUES ('%s','%s','%s','%s','%s','%s')"
+	        		, theatercode, theatername, centercode, seatprice, cleantime, totalseats);
 	         stmt.executeUpdate(sql);
-	         System.out.printf("%s 영화관의 %s 상영 정보 등록이 완료되었습니다.\n", movpoint, thename);
+	         System.out.printf("%s 영화관의 %s 상영관 정보 등록이 완료되었습니다.\n", centername, theatername);
 	      } catch (Exception e) {
 	         System.out.println("DB 작업중 문제 발생: " + e.getMessage());
 	         e.printStackTrace();
 	      }
 	   }
-	public void updateTheater(String thecode, String thename, String movcenter, int price, int cleantime, String movpoint) {
+	public void updateTheater(String theatercode, String theatername, String centercode, int seatprice, int cleantime, String totalseats) {
 		//============== DB작업 ================
 		try {
 			stmt = conn.createStatement();
-			String sql = String.format("UPDATE Theater SET thename = '%s' , movcenter = '%s', price = '%s', cleantime = '%s' WHERE thecode = '%s'", 
-thename, movcenter, price, cleantime, thecode);
+			 ArrayList<MOVIECENTER> moviecenters = getmoviecenter();
+
+	    	  String centername = "";
+	    	  for (MOVIECENTER moviecenter : moviecenters) {
+	    		  if (moviecenter.getCentercode().equals(centercode))
+	    			  centername = moviecenter.getCentername();
+	    	  }
+			
+			String sql = String.format("UPDATE THEATER SET theatername = '%s' , centercode = '%s', seatprice = '%s', cleantime = '%s', totalseats = '%s' WHERE theatercode = '%s'", 
+theatername, centercode, seatprice, cleantime, totalseats, theatercode);
 		stmt.executeUpdate(sql);
-		System.out.printf("%s 영화관의 %s 상영 정보 수정이 완료되었습니다.\n", movpoint, thename);
+		System.out.printf("%s 영화관의 %s 상영 정보 수정이 완료되었습니다.\n", centername, theatername);
 		} catch (Exception e) {
 		System.out.println("DB 작업 중 문제 발생: " + e.getMessage());
 		e.printStackTrace();
 		}
 		//=========================================
 	}
-	public void deleteTheater(String movpoint, String thecode, String thename) {
+	public void deleteTheater(String centername, String theatercode, String theatername) {
 		//================= DB작업 ===============
 		try {
 			stmt = conn.createStatement();
-			String sql = String.format("DELETE FROM Theater WHERE thecode = '%s'", thecode);
+	    	  
+			String sql = String.format("DELETE FROM THEATER WHERE theatercode = '%s'", theatercode);
 			stmt.executeUpdate(sql);
-			System.out.printf("%s 영화관의 %s 상영 정보 삭제가 완료되었습니다.\n", movpoint, thename);
+			System.out.printf("%s 영화관의 %s 상영 정보 삭제가 완료되었습니다.\n", centername, theatername);
 		}catch (Exception e) {
 			System.out.println("DB 작업중 문제 발생: " + e.getMessage());
 			e.printStackTrace();
 		}
 		// ===========================================
 	}
-	public void insertreservations(String bnumber, String ucseats, String id, String movcode, String screencode, String thecode) {
+	public void insertreservations(String reservenumber, String selectseat, String moviecode, String screencode, String theatercode, String birth,
+			String phone, String pw, String usercheck) {
 	      // ===========DB파일===========
 	      // 3. Statement 생성
 	      try {
 	        stmt = conn.createStatement();
 
-	        String sql = String.format("INSERT INTO reservations (bnumber, ucseats, id, movcode, screencode, thecode) VALUES ('%s','%s','%s','%s','%s','%s')"
-	        		, bnumber, ucseats, id, movcode, screencode, thecode);
+	        String sql = String.format("INSERT INTO RESERVATION (reservenumber, selectseat, moviecode, screencode, theatercode, birth,\r\n"
+	        		+ "			phone, pw, usercheck) VALUES ('%s','%s','%s','%s','%s','%s','%s','%s','%s')"
+	        		, reservenumber, selectseat, moviecode, screencode, theatercode, birth,
+	    			phone, pw, usercheck);
 	         stmt.executeUpdate(sql);
-	         System.out.printf("%s님의 예약이 완료되었습니다.\n", id);
+	         System.out.println("고객님의 예약이 완료되었습니다.");
 	      } catch (Exception e) {
 	         System.out.println("DB 작업중 문제 발생: " + e.getMessage());
 	         e.printStackTrace();
 	      }
 	   }
-	public void updatereservations(String bnumber, String ucseats, String id, String movcode, String screencode, String thecode) {
+	public void updatereservations(String reservenumber, String selectseat, String moviecode, String screencode, String theatercode, String birth,
+			String phone, String pw, String usercheck
+			) {
 		//============== DB작업 ================
 		try {
 			stmt = conn.createStatement();
-			String sql = String.format("UPDATE reservations SET ucseats = '%s', id = '%s' , movcode = '%s', screencode = '%s', thecode = '%s' WHERE bnumber = '%s'", 
-ucseats, id, movcode, screencode, thecode, bnumber);
+			String sql = String.format("UPDATE RESERVATION SET selectseat = '%s', moviecode = '%s' , screencode = '%s', theatercode = '%s', birth = '%s' "
+					+ ", phone = '%s', pw = '%s', usercheck = '%s' WHERE reservenumber = '%s'", 
+selectseat, moviecode, screencode, theatercode, birth, phone, pw, usercheck, reservenumber);
 		stmt.executeUpdate(sql);
-		System.out.printf("%s님의  예약 수정이 완료되었습니다.\n", id);
+		System.out.println("고객님의 예약 수정이 완료되었습니다.");
 		} catch (Exception e) {
 		System.out.println("DB 작업 중 문제 발생: " + e.getMessage());
 		e.printStackTrace();
 		}
 		//=========================================
 	}
-	public void deletereservations(String bnumber, String id) {
+	public void deletereservations(String reservenumber) {
 		//================= DB작업 ===============
 		try {
 			stmt = conn.createStatement();
-			String sql = String.format("DELETE FROM reservations WHERE bnumber = '%s'" , bnumber);
+			String sql = String.format("DELETE FROM RESERVATION WHERE reservenumber = '%s'" , reservenumber);
 			stmt.executeUpdate(sql);
-			System.out.printf("%s님의 예약 삭제가 완료되었습니다.\n", id);
+			System.out.println("고객님의 예약 삭제가 완료되었습니다.");
 		}catch (Exception e) {
 			System.out.println("DB 작업중 문제 발생: " + e.getMessage());
 			e.printStackTrace();
 		}
 		// ===========================================
 	}
-	public void insertuserinfo(String id, String pass_word, String name_, String cellphone, String birth, String ninkname) {
+	public void insertuserinfo(String ID, String userpw, String username, String phone, String birth, String ninkname, int userpoint) {
 	      // ===========DB파일===========
 	      // 3. Statement 생성
 	      try {
 	        stmt = conn.createStatement();
 
-	        String sql = String.format("INSERT INTO userinfo (id, pass_word, name_, cellphone, birth, ninkname) VALUES ('%s','%s','%s','%s','%s','%s')"
-	        		, id, pass_word, name_, cellphone, birth, ninkname);
+	        String sql = String.format("INSERT INTO USERINFO (ID, userpw, username, phone, birth, ninkname, userpoint) VALUES ('%s','%s','%s','%s','%s','%s', '%s')"
+	        		, ID, userpw, username, phone, birth, ninkname, userpoint);
 	         stmt.executeUpdate(sql);
-	         System.out.printf("%s님 회원 등록이 완료되었습니다.\n", name_);
+	         System.out.printf("%s님 회원 등록이 완료되었습니다.\n", username);
 	      } catch (Exception e) {
 	         System.out.println("DB 작업중 문제 발생: " + e.getMessage());
 	         e.printStackTrace();
 	      }
 	   }
-	public void updateuserinfo(String id, String pass_word, String name_, String cellphone, String birth, String ninkname) {
+	public void updateuserinfo(String ID, String userpw, String username, String phone, String birth, String ninkname, int userpoint) {
 		//============== DB작업 ================
 		try {
 			stmt = conn.createStatement();
-			String sql = String.format("UPDATE userinfo SET pass_word = '%s' , name_ = '%s', cellphone = '%s', birth = '%s', ninkname = '%s' WHERE id = '%s'", 
-pass_word, name_, cellphone, birth, ninkname, id);
+			String sql = String.format("UPDATE USERINFO SET userpw = '%s' , username = '%s', phone = '%s', birth = '%s', ninkname = '%s', userpoint = '%s' WHERE ID = '%s'", 
+userpw, username, phone, birth, ninkname, userpoint, ID);
 		stmt.executeUpdate(sql);
-		System.out.printf("%s님 회원 수정이 완료되었습니다.\n", name_);
+		System.out.printf("%s님 회원 수정이 완료되었습니다.\n", username);
 		} catch (Exception e) {
 		System.out.println("DB 작업 중 문제 발생: " + e.getMessage());
 		e.printStackTrace();
 		}
 		//=========================================
 	}
-	public void deleteuserinfo(String name_, String id) {
+	public void deleteuserinfo(String username, String ID) {
 		//================= DB작업 ===============
 		try {
 			stmt = conn.createStatement();
-			String sql = String.format("DELETE FROM userinfo WHERE id = '%s'" , id);
+			String sql = String.format("DELETE FROM USERINFO WHERE ID = '%s'" , ID);
 			stmt.executeUpdate(sql);
-			System.out.printf("%s님 회원 삭제가 완료되었습니다.\n", name_);
+			System.out.printf("%s님 회원 삭제가 완료되었습니다.\n", username);
 		}catch (Exception e) {
 			System.out.println("DB 작업중 문제 발생: " + e.getMessage());
 			e.printStackTrace();
 		}
 		// ===========================================
 	}
-	public void insertscreen(String screencode, String movcode, String thecode, String starttime, String endtime, String seats) {
+	public void insertscreen(String screencode, String moviecode, String theatercode, String starttime, String endtime, String soldseats) {
 	      // ===========DB파일===========
 	      // 3. Statement 생성
 	      try {
 	        stmt = conn.createStatement();
 
-	        String sql =String.format("INSERT INTO screen (screencode, movcode, thecode, starttime, endtime, seats) VALUES ('%s','%s','%s','%s','%s','%s')"
-	        		, screencode, movcode, thecode, starttime, endtime, seats);
+	        String sql =String.format("INSERT INTO SCREEN (screencode, moviecode, theatercode, starttime, endtime, soldseats) "
+	        		+ "VALUES ('%s','%s','%s','%s','%s','%s')"
+	        		, screencode, moviecode, theatercode, starttime, endtime, soldseats);
 	         stmt.executeUpdate(sql);
 	         System.out.printf("%s ~ %s 상영 영화 등록이 완료되었습니다.\n", starttime, endtime);
 	      } catch (Exception e) {
@@ -260,12 +285,12 @@ pass_word, name_, cellphone, birth, ninkname, id);
 	         e.printStackTrace();
 	      }
 	   }
-	public void updatescreen(String screencode, String movcode, String thecode, String starttime, String endtime, String seats) {
+	public void updatescreen(String screencode, String moviecode, String theatercode, String starttime, String endtime, String soldseats) {
 		//============== DB작업 ================
 		try {
 			stmt = conn.createStatement();
-			String sql = String.format("UPDATE screen SET movcode = '%s' , thecode = '%s', starttime = '%s', endtime = '%s', seats = '%s' WHERE screencode = '%s'", 
-movcode, thecode, starttime, endtime, seats, screencode);
+			String sql = String.format("UPDATE SCREEN SET moviecode = '%s' , theatercode = '%s', starttime = '%s', endtime = '%s', soldseats = '%s' WHERE screencode = '%s'", 
+moviecode, theatercode, starttime, endtime, soldseats, screencode);
 		stmt.executeUpdate(sql);
 		System.out.printf("%s ~ %s 상영 영화 수정이 완료되었습니다.\n", starttime, endtime);
 		} catch (Exception e) {
@@ -278,7 +303,7 @@ movcode, thecode, starttime, endtime, seats, screencode);
 		//================= DB작업 ===============
 		try {
 			stmt = conn.createStatement();
-			String sql = String.format("DELETE FROM screen WHERE screencode = '%s'" , screencode);
+			String sql = String.format("DELETE FROM SCREEN WHERE screencode = '%s'" , screencode);
 			stmt.executeUpdate(sql);
 			System.out.printf("영화 상영 삭제가 완료되었습니다.\n");
 		}catch (Exception e) {
