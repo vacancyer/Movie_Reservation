@@ -14,7 +14,7 @@ public static void main(String[] args) throws IOException{
 	Scanner scanner = new Scanner(System.in);
 	DBconnectMov db = new DBconnectMov();
 	Account_Main account = new Account_Main();
-	Admin_menu_v2 admin = new Admin_menu_v2();
+	Admin_menu_v2 admin = new Admin_menu_v2(); 
 	String prompt = """
 			==========================
 			=                        =
