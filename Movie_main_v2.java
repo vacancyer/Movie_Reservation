@@ -57,6 +57,7 @@ public static void main(String[] args) throws IOException{
 				break;
 			case "3":
 				//빠른 예매
+				new Reserve_Movie().speed_reservation(id);
 				break;
 			case "4":
 				//예매 조회 및 취소

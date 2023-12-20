@@ -6,20 +6,16 @@ import java.sql.ResultSet;
 
 public class DAO_Reserve_Movie {
 	
-	Connection conn = null;
+	Connection conn = new DBconnectMov().conn;
 	PreparedStatement pstmt = null;
 	ResultSet rs = null;
 	
-	public ResultSet movie_list(){
+	public ResultSet movie_list() throws Exception{
 		
-		conn = new DBconnectMov().conn;
-		try {
-			String query = "SELECT * FROM MOVIE ORDER BY salesrate";
-			pstmt = conn.prepareStatement(query);
-		} catch (Exception e) {
-			e.printStackTrace();
-			System.out.println(e.getMessage());
-		}
+		String query = "SELECT * FROM MOVIE ORDER BY SALESRATE";
+		pstmt = conn.prepareStatement(query);
+		rs = pstmt.executeQuery();
+		
 		return rs;
 	}
 
