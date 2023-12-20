@@ -6,12 +6,12 @@ import java.util.Scanner;
 public class Add_moviecenter {
 public void addmoviecenter() {
 	DBconnectMov db = new DBconnectMov();
-	ArrayList<MOVIECENTER> moviecenter = db.getmoviecenter();
+	ArrayList<moviecenter> moviecenter = db.getmoviecenter();
 	Scanner scanner = new Scanner(System.in);
 	ArrayList<String> movcenters = new ArrayList<>();
 	
 	for (int i=0; i<moviecenter.size();i++)
-		movcenters.add(moviecenter.get(i).getCentercode());
+		movcenters.add(moviecenter.get(i).getMovcenter());
 	
 	System.out.println("영화 등록 메뉴입니다.");
 	
@@ -51,7 +51,7 @@ public void addmoviecenter() {
 }
 public void changemoviecenter() {
 	DBconnectMov db = new DBconnectMov();
-	ArrayList<MOVIECENTER> moviecenters = db.getmoviecenter();
+	ArrayList<moviecenter> moviecenters = db.getmoviecenter();
 	Scanner scanner = new Scanner(System.in);
 	ArrayList<String> movcenters = new ArrayList<>();
 	
@@ -60,8 +60,8 @@ public void changemoviecenter() {
 	
 	System.out.println("영화관코드\t지점명\t주소");
 	System.out.println("=======================================");
-	for (MOVIECENTER moviecenter : moviecenters)
-		System.out.printf("%s\t%s\t%s\n", moviecenter.getCentercode(), moviecenter.getCentername(), moviecenter.getAddress());
+	for (moviecenter moviecenter : moviecenters)
+		System.out.printf("%s\t%s\t%s\n", moviecenter.getMovcenter(), moviecenter.getMovpoint(), moviecenter.getMovaddress());
 	
 	System.out.println("수정하실 영화관의 코드를 입력해주세요.");
 	String movcenter = scanner.next();
@@ -71,9 +71,9 @@ public void changemoviecenter() {
 	else {
 		System.out.println("영화관코드\t지점명\t주소");
 		System.out.println("=======================================");
-		for (MOVIECENTER moviecenter : moviecenters) {
-		if (movcenter.equals(moviecenter.getCentercode())) {
-			System.out.printf("%s\t%s\t%s\n", moviecenter.getCentercode(), moviecenter.getCentername(), moviecenter.getAddress());
+		for (moviecenter moviecenter : moviecenters) {
+		if (movcenter.equals(moviecenter.getMovcenter())) {
+			System.out.printf("%s\t%s\t%s\n", moviecenter.getMovcenter(), moviecenter.getMovpoint(), moviecenter.getMovaddress());
 		String movpoint = moviecenter.getMovpoint();
 		String movaddress = moviecenter.getMovaddress();
 		System.out.printf("지점명을 수정하시겠습니까?\n수정하시려면 <%s> 영화관의 지점명을 입력해 주세요.\n건너뛰려면 '501'을 입력해주세요.\n", movpoint);

@@ -5,6 +5,7 @@ import java.util.Scanner;
 
 public class Account_Main {
 	public String account_main() {		
+
 		InfoIDPW info = new InfoIDPW();
 		DBconnectMov db = new DBconnectMov();
 		Scanner scanner = new Scanner(System.in);

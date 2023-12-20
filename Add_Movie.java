@@ -6,12 +6,12 @@ import java.util.Scanner;
 public class Add_Movie {
 public void add_movie() {
 	DBconnectMov db = new DBconnectMov();
-	ArrayList<MOVIE> movies = db.getmovie();
+	ArrayList<movies> movies = db.getmovies();
 	Scanner scanner = new Scanner(System.in);
 	ArrayList<String> movcodes = new ArrayList<>();
 	
 	for (int i=0; i<movies.size();i++)
-		movcodes.add(movies.get(i).getMoviecode());
+		movcodes.add(movies.get(i).getMovcode());
 	
 	System.out.println("영화 등록 메뉴입니다.");
 	
@@ -57,17 +57,17 @@ public void add_movie() {
 }
 public void change_movie() {
 	DBconnectMov db = new DBconnectMov();
-	ArrayList<MOVIE> movies = db.getmovie();
+	ArrayList<movies> movies = db.getmovies();
 	Scanner scanner = new Scanner(System.in);
 	ArrayList<String> movcodes = new ArrayList<>();
 		
 		for (int i=0; i<movies.size();i++)
-			movcodes.add(movies.get(i).getMoviecode());
+			movcodes.add(movies.get(i).getMovcode());
 	System.out.println("영화코드\t영화제목\t장르\t런타임\t연령가");
 	System.out.println("=====================================");
-	for (MOVIE movie : movies)
-		System.out.printf("%s\t%s\t%s\t%s\t%s\n", movie.getMoviecode(), 
-				movie.getMoviename(), movie.getThema(), movie.getRuntime()+"분", movie.getAgegroup()+"세 이상 관람가");
+	for (movies movie : movies)
+		System.out.printf("%s\t%s\t%s\t%s\t%s\n", movie.getMovcode(), 
+				movie.getMovname(), movie.getMovthema(), movie.getRuntime()+"분", movie.getAgegroup()+"세 이상 관람가");
 	System.out.println("수정하실 영화의 '영화코드'를 입력해주세요.");
 	String movcode = scanner.next();
 	scanner.nextLine();
@@ -76,11 +76,11 @@ public void change_movie() {
 	else {
 	System.out.println("선택하신 영화의 정보입니다.");
 	for (int i=0; i<movies.size();i++) {
-		if (movcode.equals(movies.get(i).getMoviecode())) {
+		if (movcode.equals(movies.get(i).getMovcode())) {
 	System.out.printf("제목 : %s\n장르 : %s\n런타임 : %s분\n연령가 : %s세 이상 관람가\n", 
-			movies.get(i).getMoviename(), movies.get(i).getThema(), movies.get(i).getRuntime(), movies.get(i).getAgegroup());
-	String movname = movies.get(i).getMoviename();
-	String movthema = movies.get(i).getThema();
+			movies.get(i).getMovname(), movies.get(i).getMovthema(), movies.get(i).getRuntime(), movies.get(i).getAgegroup());
+	String movname = movies.get(i).getMovname();
+	String movthema = movies.get(i).getMovthema();
 	int runtime = movies.get(i).getRuntime();
 	int agegroup = movies.get(i).getAgegroup();
 	
@@ -106,7 +106,7 @@ public void change_movie() {
 	int num = scanner.nextInt();
 	switch(num) {
 	case 1:
-		db.updateMovie(movcode, movname, movthema, runtime, agegroup, movies.get(i).getSalesrate());
+		db.updateMovie(movcode, movname, movthema, runtime, agegroup, movies.get(i).getResrate());
 		break;
 	case 2:
 		System.out.println("영화수정이 취소되었습니다.");
@@ -121,18 +121,18 @@ public void change_movie() {
 }
 public void delete_movie() {
 	DBconnectMov db = new DBconnectMov();
-	ArrayList<MOVIE> movies = db.getmovie();
+	ArrayList<movies> movies = db.getmovies();
 	Scanner scanner = new Scanner(System.in);
 ArrayList<String> movcodes = new ArrayList<>();
 	
 	for (int i=0; i<movies.size();i++)
-		movcodes.add(movies.get(i).getMoviecode());
+		movcodes.add(movies.get(i).getMovcode());
 	
 	System.out.println("영화코드\t영화제목\t장르\t런타임\t연령가");
 	System.out.println("=====================================");
-	for (MOVIE movie : movies)
-		System.out.printf("%s\t%s\t%s\t%s\t%s\n", movie.getMoviecode(), 
-				movie.getMoviename(), movie.getThema(), movie.getRuntime()+"분", movie.getAgegroup()+"세 이상 관람가");
+	for (movies movie : movies)
+		System.out.printf("%s\t%s\t%s\t%s\t%s\n", movie.getMovcode(), 
+				movie.getMovname(), movie.getMovthema(), movie.getRuntime()+"분", movie.getAgegroup()+"세 이상 관람가");
 	
 	System.out.println("삭제할 영화의 '영화코드'를 입력해주세요.");
 	String movcode = scanner.next();
@@ -140,12 +140,12 @@ ArrayList<String> movcodes = new ArrayList<>();
 		System.out.println("등록된 영화코드가 아닙니다.");
 	else {
 		for (int i=0; i<movies.size();i++) {
-			if (movcode.equals(movies.get(i).getMoviecode())) {
-				System.out.printf("정말 <%s>영화를 삭제하시겠습니까?\n삭제하시려면 '1'번\n취소하시려면 '2'번을 눌러주세요.\n", movies.get(i).getMoviename());
+			if (movcode.equals(movies.get(i).getMovcode())) {
+				System.out.printf("정말 <%s>영화를 삭제하시겠습니까?\n삭제하시려면 '1'번\n취소하시려면 '2'번을 눌러주세요.\n", movies.get(i).getMovname());
 				int num = scanner.nextInt();
 			 switch(num) {
 			 case 1:
-				 db.deleteMovie(movcode, movies.get(i).getMoviename());
+				 db.deleteMovie(movcode, movies.get(i).getMovname());
 				 break;
 			 case 2:
 				 System.out.println("영화 삭제가 취소되었습니다.");
